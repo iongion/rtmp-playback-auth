@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RTMPPlaybackAuth" default="jar" basedir=".">
+
+    <!-- Properties -->
+    <property name="src.dir" value="src/main/java"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="dist"/>
+    <property name="lib.dir" value="/usr/local/WowzaStreamingEngine/lib"/>
+
+    <!-- Classpath -->
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <!-- Clean -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${jar.dir}"/>
+    </target>
+
+    <!-- Init -->
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${jar.dir}"/>
+    </target>
+
+    <!-- Compile -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}"
+               destdir="${classes.dir}"
+               classpathref="classpath"
+               includeantruntime="false"
+               source="21"
+               target="21"
+               release="21"
+               encoding="UTF-8">
+            <compilerarg value="--enable-preview"/>
+            <compilerarg value="-Xlint:all"/>
+            <compilerarg value="-Xlint:-processing"/>
+        </javac>
+    </target>
+
+    <!-- JAR -->
+    <target name="jar" depends="compile">
+        <jar destfile="${jar.dir}/rtmp-playback-auth.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Built-By" value="Ant Build"/>
+                <attribute name="Implementation-Title" value="RTMP Playback Authentication"/>
+                <attribute name="Implementation-Version" value="1.0"/>
+                <attribute name="Build-Date" value="${DSTAMP} ${TSTAMP}"/>
+                <attribute name="Java-Version" value="${java.version}"/>
+                <attribute name="Minimum-Java-Version" value="21"/>
+                <attribute name="Wowza-Compatible" value="true"/>
+            </manifest>
+        </jar>
+        <echo message="JAR created: ${jar.dir}/rtmp-playback-auth.jar"/>
+        <echo message="Java 21+ compatible JAR built successfully"/>
+    </target>
+
+    <!-- All -->
+    <target name="all" depends="clean,jar"/>
+
+</project>

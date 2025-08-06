@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Application>
+	<n>live</n>
+	<Class>com.wowza.wms.application.ApplicationInstance</Class>
+	<Description>RTMP Live Streaming Application with Playback Authentication using Wowza's Standard Credentials</Description>
+	
+	<Modules>
+		<!-- RTMP Playback Authentication Module - MUST BE FIRST for priority over SecurityToken -->
+		<Module>
+			<n>RTMPPlaybackAuth</n>
+			<Description>RTMP Playback Authentication - Standard RTMP Only</Description>
+			<Class>com.wowza.wms.plugin.security.ModuleRTMPPlaybackAuthentication</Class>
+		</Module>
+		
+		<!-- Standard live streaming modules -->
+		<Module>
+			<n>base</n>
+			<Description>Base</Description>
+			<Class>com.wowza.wms.module.ModuleCore</Class>
+		</Module>
+		<Module>
+			<n>logging</n>
+			<Description>Client Logging</Description>
+			<Class>com.wowza.wms.module.ModuleClientLogging</Class>
+		</Module>
+		<Module>
+			<n>flvplayback</n>
+			<Description>FLV Playback</Description>
+			<Class>com.wowza.wms.module.ModuleFLVPlayback</Class>
+		</Module>
+		<Module>
+			<n>mp4playback</n>
+			<Description>MP4 Playback</Description>
+			<Class>com.wowza.wms.module.ModuleMP4Playback</Class>
+		</Module>
+		<Module>
+			<n>contentprovider</n>
+			<Description>Content Provider</Description>
+			<Class>com.wowza.wms.module.ModuleContentProvider</Class>
+		</Module>
+		
+		<!-- Standard RTMP Authentication Module (for publishing) -->
+		<Module>
+			<n>ModuleRTMPAuthenticate</n>
+			<Description>RTMP Authentication</Description>
+			<Class>com.wowza.wms.security.ModuleRTMPAuthenticate</Class>
+		</Module>
+		
+		<!-- SecurityToken Module (if needed) - will be overridden by RTMPPlaybackAuth for playback -->
+		<!--
+		<Module>
+			<n>ModuleSecureURLParams</n>
+			<Description>SecureURL Parameters</Description>
+			<Class>com.wowza.wms.security.ModuleSecureURLParams</Class>
+		</Module>
+		-->
+	</Modules>
+
+	<Properties>
+		<!-- Standard live application properties -->
+		<Property>
+			<n>streamType</n>
+			<Value>live</Value>
+			<Type>String</Type>
+		</Property>
+		<Property>
+			<n>storageDir</n>
+			<Value>${com.wowza.wms.context.VHostConfigHome}/content</Value>
+			<Type>String</Type>
+		</Property>
+		<Property>
+			<n>liveStreamTranscoder</n>
+			<Value>transcoder</Value>
+			<Type>String</Type>
+		</Property>
+		<Property>
+			<n>httpOriginMode</n>
+			<Value>on</Value>
+			<Type>String</Type>
+		</Property>
+		<Property>
+			<n>formatMP4H264AAC</n>
+			<Value>mp4:H.264/AAC</Value>
+			<Type>String</Type>
+		</Property>
+		<Property>
+			<n>packetizerHLSVersion</n>
+			<Value>3</Value>
+			<Type>Integer</Type>
+		</Property>
+		<Property>
+			<n>packetizerHLSChunkDurationTarget</n>
+			<Value>10000</Value>
+			<Type>Integer</Type>
+		</Property>
+		
+		<!-- Standard Wowza RTMP Publishing Authentication -->
+		<Property>
+			<n>securityPublishRequirePassword</n>
+			<Value>true</Value>
+			<Type>Boolean</Type>
+		</Property>
+		
+		<!-- Optional: Custom password file location (if not using default) -->
+		<!-- Uncomment and modify if you want to use a custom password file location -->
+		<!--
+		<Property>
+			<n>securityPublishPasswordFile</n>
+			<Value>/usr/local/WowzaStreamingEngine/conf/publish.password</Value>
+			<Type>String</Type>
+		</Property>
+		-->
+		
+		<!-- RTMP Playback Authentication Properties -->
+		<Property>
+			<n>rtmpPlaybackRequireAuth</n>
+			<Value>true</Value>
+			<Type>Boolean</Type>
+		</Property>
+		<Property>
+			<n>rtmpPlaybackUsePublishAuth</n>
+			<Value>true</Value>
+			<Type>Boolean</Type>
+		</Property>
+		<Property>
+			<n>rtmpPlaybackAuthTimeout</n>
+			<Value>30000</Value>
+			<Type>Integer</Type>
+		</Property>
+		<Property>
+			<n>rtmpPlaybackOverrideSecurityToken</n>
+			<Value>true</Value>
+			<Type>Boolean</Type>
+		</Property>
+		
+		<!-- Security options -->
+		<Property>
+			<n>securityPlayRequirePassword</n>
+			<Value>false</Value>
+			<Type>Boolean</Type>
+		</Property>
+		
+		<!-- HTTP streaming authentication (optional) -->
+		<Property>
+			<n>securityHTTPStreamingRequirePassword</n>
+			<Value>false</Value>
+			<Type>Boolean</Type>
+		</Property>
+		
+		<!-- RTSP authentication (optional) -->
+		<Property>
+			<n>securityRTSPRequirePassword</n>
+			<Value>false</Value>
+			<Type>Boolean</Type>
+		</Property>
+		
+		<!-- Playback security options -->
+		<Property>
+			<n>playbackSecurityPublishRequirePassword</n>
+			<Value>false</Value>
+			<Type>Boolean</Type>
+		</Property>
+	</Properties>
+</Application>

@@ -1,0 +1,102 @@
+# EditorConfig configuration for RTMP Playback Authentication Module
+# https://editorconfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Java source files
+[*.java]
+indent_style = space
+indent_size = 4
+max_line_length = 120
+continuation_indent_size = 8
+
+# XML files (Application.xml, pom.xml, build.xml)
+[*.xml]
+indent_style = tab
+indent_size = 2
+max_line_length = 100
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+# Markdown documentation
+[*.md]
+indent_style = space
+indent_size = 2
+max_line_length = 100
+trim_trailing_whitespace = false
+
+# Properties files (including publish.password)
+[*.{properties,password}]
+indent_style = space
+indent_size = 2
+max_line_length = 80
+
+# JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# YAML files (CI/CD configurations)
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+max_line_length = 120
+
+# Text files
+[*.txt]
+indent_style = space
+indent_size = 2
+max_line_length = 80
+
+# Configuration files
+[*.{conf,config,ini}]
+indent_style = space
+indent_size = 2
+
+# Batch files (Windows)
+[*.{bat,cmd}]
+end_of_line = crlf
+indent_style = space
+indent_size = 2
+
+# PowerShell files
+[*.ps1]
+indent_style = space
+indent_size = 4
+end_of_line = crlf
+
+# Makefile
+[{Makefile,makefile}]
+indent_style = tab
+indent_size = 4
+
+# Git configuration
+[.gitignore]
+indent_style = space
+indent_size = 2
+
+# License files
+[{LICENSE,COPYING,COPYRIGHT}*]
+max_line_length = off
+trim_trailing_whitespace = false
+
+# Package files (don't modify)
+[*.{jar,zip,tar.gz,tgz}]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_style = unset
+indent_size = unset
